@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Sorteio de Números da Loteria</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				margin: 20px;
+			}
+			.result {
+				margin-top: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Sorteio de Números da Loteria</h1>
+		<label for="tipoLoteria">Escolha o tipo de loteria:</label>
+		<select id="tipoLoteria">
+			<option value="sena">Mega-Sena</option>
+			<option value="quina">Quina</option>
+			<option value="lotofacil">Lotofácil</option>
+		</select>
+		<button onclick="sortearNumeros()">Sortear Números</button>
+
+		<div class="result" id="resultado"></div>
+
+		<script>
+			function sortearNumeros() {
+				const tipoLoteria = document.getElementById('tipoLoteria').value;
+				let numeros = [];
+				let quantidade = 0;
+				let max = 0;
+
+				if (tipoLoteria === 'sena') {
+					quantidade = 6;
+					max = 60;
+				} else if (tipoLoteria === 'quina') {
+					quantidade = 5;
+					max = 80;
+				} else if (tipoLoteria === 'lotofacil') {
+					quantidade = 15;
+					max = 25;
+				}
+
+				while (numeros.length < quantidade) {
+					let num = Math.floor(Math.random() * max) + 1;
+					if (!numeros.includes(num)) {
+						numeros.push(num);
+					}
+				}
+
+				numeros.sort((a, b) => a - b);
+				document.getElementById(
+					'resultado'
+				).innerText = `Números sorteados (${tipoLoteria}): ${numeros.join(
+					', '
+				)}`;
+			}
+		</script>
+	</body>
+</html>
